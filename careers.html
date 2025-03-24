@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - All Tech Solutions</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="assets/images/logo.jpg" alt="All Tech Solutions Logo">
+                <h1>All Tech <span>Solutions</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="careers-hero">
+            <h2>Join Our Team</h2>
+            <p>Build your career with a company that values innovation, growth, and excellence</p>
+        </section>
+
+        <section class="careers-benefits">
+            <h2>Why Work With Us?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Competitive Salary</h3>
+                    <p>Market-competitive compensation packages with regular reviews and performance bonuses.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Growth Opportunities</h3>
+                    <p>Continuous learning and development programs to advance your career.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Work-Life Balance</h3>
+                    <p>Flexible working hours and remote work options for better work-life integration.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Health Benefits</h3>
+                    <p>Comprehensive health insurance and wellness programs for you and your family.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="open-positions">
+            <h2>Open Positions</h2>
+            <div class="job-listings">
+                <div class="job-card">
+                    <h3>Senior Software Engineer</h3>
+                    <p class="job-location">📍 Chennai, India</p>
+                    <p class="job-type">Full-time</p>
+                    <p class="job-description">We're looking for an experienced software engineer to join our development team. The ideal candidate will have strong experience with modern web technologies and cloud platforms.</p>
+                    <ul class="job-requirements">
+                        <li>5+ years of software development experience</li>
+                        <li>Strong knowledge of JavaScript, Python, and cloud platforms</li>
+                        <li>Experience with agile development methodologies</li>
+                        <li>Excellent problem-solving and communication skills</li>
+                    </ul>
+                    <button class="apply-button" onclick="showApplicationForm('Senior Software Engineer')">Apply Now</button>
+                </div>
+
+                <div class="job-card">
+                    <h3>Cloud Solutions Architect</h3>
+                    <p class="job-location">📍 Chennai, India</p>
+                    <p class="job-type">Full-time</p>
+                    <p class="job-description">We're seeking a cloud solutions architect to design and implement cloud infrastructure solutions for our clients.</p>
+                    <ul class="job-requirements">
+                        <li>7+ years of cloud architecture experience</li>
+                        <li>Expert knowledge of AWS, Azure, and GCP</li>
+                        <li>Experience with infrastructure as code</li>
+                        <li>Strong leadership and mentoring abilities</li>
+                    </ul>
+                    <button class="apply-button" onclick="showApplicationForm('Cloud Solutions Architect')">Apply Now</button>
+                </div>
+
+                <div class="job-card">
+                    <h3>Business Analyst</h3>
+                    <p class="job-location">📍 Chennai, India</p>
+                    <p class="job-type">Full-time</p>
+                    <p class="job-description">Join our team to bridge the gap between technology and business objectives.</p>
+                    <ul class="job-requirements">
+                        <li>3+ years of business analysis experience</li>
+                        <li>Strong analytical and problem-solving skills</li>
+                        <li>Experience with agile methodologies</li>
+                        <li>Excellent communication and stakeholder management</li>
+                    </ul>
+                    <button class="apply-button" onclick="showApplicationForm('Business Analyst')">Apply Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="application-form" id="applicationForm">
+            <h2>Apply for Position</h2>
+            <form id="careerForm">
+                <div class="form-group">
+                    <label for="position">Position Applied For</label>
+                    <input type="text" id="position" name="position" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="resume">Resume (PDF)</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="cover-letter">Cover Letter</label>
+                    <textarea id="cover-letter" name="cover-letter" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Submit Application</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <p>© 2025 All Tech Solutions. All rights reserved.</p>
+                <p>Email: careers@alltechsolutions.com | Phone: +91 44 2713 5722</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function showApplicationForm(position) {
+            document.getElementById('position').value = position;
+            document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html> 

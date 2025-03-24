@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Logo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #logoCanvas {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #283593;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Tech Solutions Logo Generator</h1>
+    <p>Preview of the logo:</p>
+    <canvas id="logoCanvas" width="200" height="200"></canvas>
+    <br>
+    <button onclick="downloadLogo()">Download Logo</button>
+
+    <script>
+        const canvas = document.getElementById('logoCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawLogo() {
+            // Set background
+            ctx.fillStyle = '#1a237e';
+            ctx.fillRect(0, 0, 200, 200);
+
+            // Draw circle
+            ctx.beginPath();
+            ctx.arc(100, 100, 80, 0, 2 * Math.PI);
+            ctx.fillStyle = '#64b5f6';
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Draw "ATS" text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 60px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('ATS', 100, 100);
+        }
+
+        function downloadLogo() {
+            const link = document.createElement('a');
+            link.download = 'logo.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+
+        // Draw the logo when the page loads
+        drawLogo();
+    </script>
+</body>
+</html> 
