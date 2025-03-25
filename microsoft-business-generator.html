@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Business Transformation Generator - Veltrix Solutions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            min-height: 500px;
+        }
+
+        #businessCanvas {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            margin: 0 auto;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #1a237e;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="color"] {
+            height: 40px;
+            padding: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button {
+            background: #1a237e;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #64b5f6;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Microsoft Business Transformation Generator</h1>
+        <div class="preview-container">
+            <canvas id="businessCanvas"></canvas>
+        </div>
+        <div class="controls">
+            <div class="control-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" value="Transform Your Business with Microsoft Dynamics 365" maxlength="50">
+            </div>
+            <div class="control-group">
+                <label for="subtitle">Subtitle</label>
+                <input type="text" id="subtitle" value="Streamline operations with our comprehensive solutions" maxlength="100">
+            </div>
+            <div class="control-group">
+                <label for="titleColor">Title Color</label>
+                <input type="color" id="titleColor" value="#1a237e">
+            </div>
+            <div class="control-group">
+                <label for="subtitleColor">Subtitle Color</label>
+                <input type="color" id="subtitleColor" value="#455a64">
+            </div>
+            <div class="control-group">
+                <label for="titleSize">Title Size</label>
+                <select id="titleSize">
+                    <option value="32">Small</option>
+                    <option value="40" selected>Medium</option>
+                    <option value="48">Large</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="subtitleSize">Subtitle Size</label>
+                <select id="subtitleSize">
+                    <option value="18">Small</option>
+                    <option value="24" selected>Medium</option>
+                    <option value="32">Large</option>
+                </select>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="primary-button" onclick="generateImage()">Generate Image</button>
+            <button class="secondary-button" onclick="downloadImage()">Download Image</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('businessCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = 1000;
+            canvas.height = 500;
+        }
+
+        function drawMicrosoftLogo() {
+            // Draw Microsoft logo
+            const colors = ['#f25022', '#7fba00', '#00a4ef', '#ffb900'];
+            const size = 40;
+            const spacing = 10;
+            const startX = canvas.width/2 - 100; // Center the logo
+            const startY = 40; // Moved up slightly
+
+            for (let i = 0; i < 4; i++) {
+                ctx.fillStyle = colors[i];
+                ctx.fillRect(
+                    startX + (i * (size + spacing)),
+                    startY,
+                    size,
+                    size
+                );
+            }
+        }
+
+        function drawSolutionIcons() {
+            const solutions = [
+                { icon: '💼', text: 'Business Central' },
+                { icon: '🏢', text: 'Finance & Operations' },
+                { icon: '📊', text: 'Power BI' },
+                { icon: '⚡', text: 'Power Apps' }
+            ];
+
+            const totalWidth = canvas.width - 200; // Leave 100px margin on each side
+            const spacing = totalWidth / (solutions.length - 1); // Evenly distribute space
+            const startX = 100; // Start from left margin
+            const startY = 350;
+
+            solutions.forEach((solution, index) => {
+                // Draw icon
+                ctx.font = '48px Segoe UI';
+                ctx.textAlign = 'center';
+                ctx.fillStyle = '#1a237e';
+                ctx.fillText(solution.icon, startX + (index * spacing), startY);
+
+                // Draw text
+                ctx.font = '16px Segoe UI';
+                ctx.fillStyle = '#455a64';
+                ctx.fillText(solution.text, startX + (index * spacing), startY + 60);
+            });
+        }
+
+        function generateImage() {
+            resizeCanvas();
+            
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop(0, 'rgba(26, 35, 126, 0.05)');
+            gradient.addColorStop(1, 'rgba(64, 181, 246, 0.05)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Microsoft logo
+            drawMicrosoftLogo();
+
+            // Draw title and subtitle
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const titleColor = document.getElementById('titleColor').value;
+            const subtitleColor = document.getElementById('subtitleColor').value;
+            const titleSize = parseInt(document.getElementById('titleSize').value);
+            const subtitleSize = parseInt(document.getElementById('subtitleSize').value);
+
+            // Draw title with word wrap
+            ctx.font = `bold ${titleSize}px 'Segoe UI'`;
+            ctx.fillStyle = titleColor;
+            ctx.textAlign = 'center';
+            
+            // Word wrap for title
+            const words = title.split(' ');
+            let line = '';
+            let y = 140;
+            const maxWidth = canvas.width - 200;
+            
+            for (let i = 0; i < words.length; i++) {
+                const testLine = line + words[i] + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth) {
+                    ctx.fillText(line, canvas.width/2, y);
+                    line = words[i] + ' ';
+                    y += titleSize + 10;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, canvas.width/2, y);
+
+            // Draw subtitle with more spacing
+            ctx.font = `${subtitleSize}px 'Segoe UI'`;
+            ctx.fillStyle = subtitleColor;
+            ctx.fillText(subtitle, canvas.width/2, y + subtitleSize + 30);
+
+            // Draw solution icons
+            drawSolutionIcons();
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'microsoft-business.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initial generation
+        generateImage();
+
+        // Update on input changes
+        document.querySelectorAll('.controls input, .controls select').forEach(input => {
+            input.addEventListener('input', generateImage);
+        });
+    </script>
+</body>
+</html> 

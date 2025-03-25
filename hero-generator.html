@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Image Generator - Veltrix Solutions</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .hero-generator {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-generator h2 {
+            color: #1a237e;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hero-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            min-height: 500px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        #heroCanvas {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .hero-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 0.95rem;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-group input:focus,
+        .control-group select:focus {
+            border-color: #1a237e;
+            outline: none;
+        }
+
+        .control-group input[type="color"] {
+            height: 45px;
+            padding: 0.3rem;
+            cursor: pointer;
+        }
+
+        .control-group input[type="file"] {
+            padding: 0.5rem;
+            background: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .generator-button {
+            padding: 1rem 2rem;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .generator-button:hover {
+            background: #283593;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(26, 35, 126, 0.2);
+        }
+
+        .generator-button:last-child {
+            background: #64b5f6;
+        }
+
+        .generator-button:last-child:hover {
+            background: #42a5f5;
+        }
+
+        @media (max-width: 768px) {
+            .hero-generator {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .hero-controls {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .generator-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <h1>Hero Image Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-generator">
+            <h2>Customize Your Hero Image</h2>
+            <div class="hero-controls">
+                <div class="control-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" value="Transform Your Business with Microsoft Dynamics 365" maxlength="50">
+                </div>
+                <div class="control-group">
+                    <label for="subtitle">Subtitle</label>
+                    <input type="text" id="subtitle" value="Streamline operations with our comprehensive solutions" maxlength="100">
+                </div>
+                <div class="control-group">
+                    <label for="titleColor">Title Color</label>
+                    <input type="color" id="titleColor" value="#1a237e">
+                </div>
+                <div class="control-group">
+                    <label for="subtitleColor">Subtitle Color</label>
+                    <input type="color" id="subtitleColor" value="#455a64">
+                </div>
+                <div class="control-group">
+                    <label for="titleSize">Title Size</label>
+                    <select id="titleSize">
+                        <option value="32">Small</option>
+                        <option value="40" selected>Medium</option>
+                        <option value="48">Large</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="subtitleSize">Subtitle Size</label>
+                    <select id="subtitleSize">
+                        <option value="18">Small</option>
+                        <option value="24" selected>Medium</option>
+                        <option value="32">Large</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="backgroundImage">Background Image</label>
+                    <input type="file" id="backgroundImage" accept="image/*">
+                </div>
+            </div>
+            <div class="hero-preview">
+                <canvas id="heroCanvas"></canvas>
+            </div>
+            <div class="button-group">
+                <button class="generator-button" onclick="generateHero()">Generate Hero</button>
+                <button class="generator-button" onclick="downloadHero()">Download Hero</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <p>© 2025 Veltrix Solutions. All rights reserved.</p>
+                <p>Email: info@veltrixsolutions.com | Phone: +91 44 2713 5722</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let backgroundImage = null;
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = 1000;
+            canvas.height = 500;
+        }
+
+        // Load background image
+        document.getElementById('backgroundImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    backgroundImage = new Image();
+                    backgroundImage.onload = function() {
+                        generateHero();
+                    };
+                    backgroundImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Generate hero image
+        function generateHero() {
+            resizeCanvas();
+            
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background image if available
+            if (backgroundImage) {
+                ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+            }
+
+            // Add gradient overlay
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop(0, 'rgba(26, 35, 126, 0.05)');
+            gradient.addColorStop(1, 'rgba(64, 181, 246, 0.05)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Get input values
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const titleColor = document.getElementById('titleColor').value;
+            const subtitleColor = document.getElementById('subtitleColor').value;
+            const titleSize = parseInt(document.getElementById('titleSize').value);
+            const subtitleSize = parseInt(document.getElementById('subtitleSize').value);
+
+            // Draw title
+            ctx.font = `bold ${titleSize}px 'Segoe UI', sans-serif`;
+            ctx.fillStyle = titleColor;
+            ctx.textAlign = 'left';
+            
+            // Split title into multiple lines if needed
+            const words = title.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+            
+            for (let i = 1; i < words.length; i++) {
+                const width = ctx.measureText(currentLine + ' ' + words[i]).width;
+                if (width < canvas.width - 100) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+
+            // Draw each line of the title
+            lines.forEach((line, index) => {
+                ctx.fillText(line, 60, 180 + (index * (titleSize + 15)));
+            });
+
+            // Draw subtitle
+            ctx.font = `${subtitleSize}px 'Segoe UI', sans-serif`;
+            ctx.fillStyle = subtitleColor;
+            ctx.fillText(subtitle, 60, 280);
+
+            // Add decorative elements
+            ctx.strokeStyle = titleColor;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(60, 300);
+            ctx.lineTo(200, 300);
+            ctx.stroke();
+        }
+
+        // Download hero image
+        function downloadHero() {
+            const link = document.createElement('a');
+            link.download = 'hero-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initial generation
+        generateHero();
+
+        // Update on input changes
+        document.querySelectorAll('.hero-controls input, .hero-controls select').forEach(input => {
+            input.addEventListener('input', generateHero);
+        });
+    </script>
+</body>
+</html> 

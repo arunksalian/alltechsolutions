@@ -3,66 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veltrix Solutions - Logo Generator</title>
+    <title>Logo Generator - Veltrix Solutions</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
         .logo-generator {
             max-width: 800px;
             margin: 2rem auto;
             padding: 2rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .logo-preview {
-            width: 300px;
-            height: 300px;
-            margin: 2rem auto;
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: #fff;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-text {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            line-height: 1.2;
-            position: relative;
-            display: flex;
             align-items: center;
-            gap: 1rem;
-            letter-spacing: -0.5px;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
         }
 
-        .logo-image {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-right: 1rem;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-
-        .logo-text span {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-top: 0.5rem;
-            letter-spacing: 0.5px;
-        }
-
-        .controls {
+        .logo-controls {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
-            margin: 2rem 0;
+            margin-bottom: 2rem;
         }
 
         .control-group {
@@ -72,68 +39,48 @@
         }
 
         .control-group label {
-            font-weight: bold;
-            color: #333;
+            font-weight: 500;
+            color: #1a237e;
         }
 
         .control-group input {
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 1rem;
         }
 
-        .color-picker {
+        .control-group input[type="color"] {
+            height: 40px;
+            padding: 0;
+        }
+
+        .button-group {
             display: flex;
             gap: 1rem;
-            align-items: center;
-        }
-
-        .color-picker input[type="color"] {
-            width: 50px;
-            height: 50px;
-            padding: 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .download-section {
-            text-align: center;
+            justify-content: center;
             margin-top: 2rem;
         }
 
-        .download-button {
-            background: #007bff;
+        .generator-button {
+            padding: 0.8rem 1.5rem;
+            background: #1a237e;
             color: white;
             border: none;
-            padding: 1rem 2rem;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1rem;
             transition: background 0.3s;
         }
 
-        .download-button:hover {
-            background: #0056b3;
+        .generator-button:hover {
+            background: #283593;
         }
 
-        .logo-shape {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #007bff 0%, #00bcd4 100%);
-            opacity: 0.1;
-            z-index: 0;
-            border-radius: 50%;
-        }
-
-        .logo-content {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        #logoCanvas {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -141,14 +88,13 @@
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <img src="assets/images/logo.png" alt="Veltrix Solutions Logo">
-                <h1>Veltrix <span>Solutions</span></h1>
+                <h1>Logo Generator</h1>
             </div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
                     <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -157,69 +103,31 @@
 
     <main>
         <div class="logo-generator">
-            <h2>Logo Generator</h2>
+            <h2>Customize Your Logo</h2>
+            <div class="logo-controls">
+                <div class="control-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" value="Veltrix Solutions">
+                </div>
+                <div class="control-group">
+                    <label for="primaryColor">Primary Color</label>
+                    <input type="color" id="primaryColor" value="#1a237e">
+                </div>
+                <div class="control-group">
+                    <label for="secondaryColor">Secondary Color</label>
+                    <input type="color" id="secondaryColor" value="#64b5f6">
+                </div>
+                <div class="control-group">
+                    <label for="fontSize">Font Size</label>
+                    <input type="range" id="fontSize" min="20" max="60" value="40">
+                </div>
+            </div>
             <div class="logo-preview">
-                <div class="logo-shape" id="logoShape"></div>
-                <div class="logo-content">
-                    <div class="logo-text" id="logoText">
-                        <img id="logoImage" class="logo-image" src="assets/images/logo.png" style="display: block;">
-                        <div>
-                            Veltrix
-                            <span>Solutions</span>
-                        </div>
-                    </div>
-                </div>
+                <canvas id="logoCanvas" width="400" height="200"></canvas>
             </div>
-
-            <div class="controls">
-                <div class="control-group">
-                    <label>Upload Image</label>
-                    <input type="file" id="imageUpload" accept="image/*">
-                </div>
-                <div class="control-group">
-                    <label>Image Size</label>
-                    <input type="range" id="imageSize" min="40" max="120" value="80">
-                </div>
-                <div class="control-group">
-                    <label>Image Position</label>
-                    <select id="imagePosition">
-                        <option value="left">Left</option>
-                        <option value="right">Right</option>
-                        <option value="top">Top</option>
-                        <option value="bottom">Bottom</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label>Primary Color</label>
-                    <div class="color-picker">
-                        <input type="color" id="primaryColor" value="#007bff">
-                        <input type="text" id="primaryColorHex" value="#007bff">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Secondary Color</label>
-                    <div class="color-picker">
-                        <input type="color" id="secondaryColor" value="#00bcd4">
-                        <input type="text" id="secondaryColorHex" value="#00bcd4">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Font Size</label>
-                    <input type="range" id="fontSize" min="1" max="4" step="0.1" value="2.5">
-                </div>
-                <div class="control-group">
-                    <label>Shape Style</label>
-                    <select id="shapeStyle">
-                        <option value="circle">Circle</option>
-                        <option value="square">Square</option>
-                        <option value="hexagon">Hexagon</option>
-                        <option value="none">None</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="download-section">
-                <button class="download-button" onclick="downloadLogo()">Download Logo</button>
+            <div class="button-group">
+                <button class="generator-button" onclick="generateLogo()">Generate Logo</button>
+                <button class="generator-button" onclick="downloadLogo()">Download Logo</button>
             </div>
         </div>
     </main>
@@ -234,105 +142,59 @@
     </footer>
 
     <script>
-        // Image upload handling
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById('logoImage');
-                    img.src = e.target.result;
-                    img.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+        const canvas = document.getElementById('logoCanvas');
+        const ctx = canvas.getContext('2d');
 
-        // Image size control
-        document.getElementById('imageSize').addEventListener('input', function(e) {
-            const img = document.getElementById('logoImage');
-            img.style.width = e.target.value + 'px';
-            img.style.height = e.target.value + 'px';
-        });
+        function generateLogo() {
+            const companyName = document.getElementById('companyName').value;
+            const primaryColor = document.getElementById('primaryColor').value;
+            const secondaryColor = document.getElementById('secondaryColor').value;
+            const fontSize = document.getElementById('fontSize').value;
 
-        // Image position control
-        document.getElementById('imagePosition').addEventListener('change', function(e) {
-            const logoText = document.getElementById('logoText');
-            const img = document.getElementById('logoImage');
-            
-            // Reset styles
-            logoText.style.flexDirection = 'row';
-            logoText.style.alignItems = 'center';
-            img.style.margin = '0 1rem';
-            
-            switch(e.target.value) {
-                case 'left':
-                    logoText.style.flexDirection = 'row';
-                    img.style.margin = '0 1rem 0 0';
-                    break;
-                case 'right':
-                    logoText.style.flexDirection = 'row-reverse';
-                    img.style.margin = '0 0 0 1rem';
-                    break;
-                case 'top':
-                    logoText.style.flexDirection = 'column';
-                    img.style.margin = '0 0 1rem 0';
-                    break;
-                case 'bottom':
-                    logoText.style.flexDirection = 'column-reverse';
-                    img.style.margin = '1rem 0 0 0';
-                    break;
-            }
-        });
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Update logo colors
-        document.getElementById('primaryColor').addEventListener('input', function(e) {
-            document.getElementById('primaryColorHex').value = e.target.value;
-            document.getElementById('logoText').style.color = e.target.value;
-        });
+            // Draw background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        document.getElementById('secondaryColor').addEventListener('input', function(e) {
-            document.getElementById('secondaryColorHex').value = e.target.value;
-            document.querySelector('.logo-text span').style.color = e.target.value;
-        });
+            // Draw logo shape
+            ctx.beginPath();
+            ctx.moveTo(50, 100);
+            ctx.lineTo(150, 50);
+            ctx.lineTo(250, 50);
+            ctx.lineTo(350, 100);
+            ctx.lineTo(250, 150);
+            ctx.lineTo(150, 150);
+            ctx.closePath();
+            ctx.fillStyle = primaryColor;
+            ctx.fill();
+            ctx.strokeStyle = secondaryColor;
+            ctx.lineWidth = 2;
+            ctx.stroke();
 
-        // Update font size
-        document.getElementById('fontSize').addEventListener('input', function(e) {
-            document.getElementById('logoText').style.fontSize = e.target.value + 'rem';
-        });
-
-        // Update shape style
-        document.getElementById('shapeStyle').addEventListener('change', function(e) {
-            const shape = document.getElementById('logoShape');
-            shape.style.clipPath = '';
-            
-            switch(e.target.value) {
-                case 'circle':
-                    shape.style.clipPath = 'circle(50% at 50% 50%)';
-                    break;
-                case 'square':
-                    shape.style.clipPath = 'none';
-                    break;
-                case 'hexagon':
-                    shape.style.clipPath = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)';
-                    break;
-                case 'none':
-                    shape.style.display = 'none';
-                    break;
-            }
-        });
-
-        // Download logo
-        function downloadLogo() {
-            const logoPreview = document.querySelector('.logo-preview');
-            html2canvas(logoPreview).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'veltrix-solutions-logo.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+            // Add text
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(companyName, canvas.width/2, canvas.height/2);
         }
+
+        function downloadLogo() {
+            const link = document.createElement('a');
+            link.download = 'logo.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Generate logo on page load
+        window.onload = generateLogo;
+
+        // Update logo when controls change
+        document.querySelectorAll('.logo-controls input').forEach(input => {
+            input.addEventListener('input', generateLogo);
+        });
     </script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
 </html> 

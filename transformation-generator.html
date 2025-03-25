@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Transformation Image Generator - Veltrix Solutions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            min-height: 500px;
+        }
+
+        #transformationCanvas {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #1a237e;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="color"] {
+            height: 40px;
+            padding: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button {
+            background: #1a237e;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #64b5f6;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Business Transformation Image Generator</h1>
+        <div class="preview-container">
+            <canvas id="transformationCanvas"></canvas>
+        </div>
+        <div class="controls">
+            <div class="control-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" value="Business Transformation Journey" maxlength="50">
+            </div>
+            <div class="control-group">
+                <label for="subtitle">Subtitle</label>
+                <input type="text" id="subtitle" value="From Traditional to Digital Excellence" maxlength="100">
+            </div>
+            <div class="control-group">
+                <label for="titleColor">Title Color</label>
+                <input type="color" id="titleColor" value="#1a237e">
+            </div>
+            <div class="control-group">
+                <label for="subtitleColor">Subtitle Color</label>
+                <input type="color" id="subtitleColor" value="#455a64">
+            </div>
+            <div class="control-group">
+                <label for="titleSize">Title Size</label>
+                <select id="titleSize">
+                    <option value="32">Small</option>
+                    <option value="40" selected>Medium</option>
+                    <option value="48">Large</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="subtitleSize">Subtitle Size</label>
+                <select id="subtitleSize">
+                    <option value="18">Small</option>
+                    <option value="24" selected>Medium</option>
+                    <option value="32">Large</option>
+                </select>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="primary-button" onclick="generateImage()">Generate Image</button>
+            <button class="secondary-button" onclick="downloadImage()">Download Image</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('transformationCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = 1000;
+            canvas.height = 500;
+        }
+
+        function drawArrow(x1, y1, x2, y2, color) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Draw arrow head
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const headLength = 20;
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - headLength * Math.cos(angle - Math.PI / 6),
+                      y2 - headLength * Math.sin(angle - Math.PI / 6));
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - headLength * Math.cos(angle + Math.PI / 6),
+                      y2 - headLength * Math.sin(angle + Math.PI / 6));
+            ctx.stroke();
+        }
+
+        function drawCircle(x, y, radius, color, text) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '16px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+        }
+
+        function generateImage() {
+            resizeCanvas();
+            
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop(0, 'rgba(26, 35, 126, 0.05)');
+            gradient.addColorStop(1, 'rgba(64, 181, 246, 0.05)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw transformation journey
+            const startX = 150;
+            const endX = 850;
+            const y = 250;
+
+            // Draw circles
+            drawCircle(startX, y, 60, '#1a237e', 'Traditional');
+            drawCircle(startX + 200, y, 60, '#64b5f6', 'Digital');
+            drawCircle(startX + 400, y, 60, '#1a237e', 'Modern');
+            drawCircle(startX + 600, y, 60, '#64b5f6', 'Future');
+
+            // Draw arrows
+            drawArrow(startX + 60, y, startX + 140, y, '#1a237e');
+            drawArrow(startX + 260, y, startX + 340, y, '#64b5f6');
+            drawArrow(startX + 460, y, startX + 540, y, '#1a237e');
+
+            // Draw title
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const titleColor = document.getElementById('titleColor').value;
+            const subtitleColor = document.getElementById('subtitleColor').value;
+            const titleSize = parseInt(document.getElementById('titleSize').value);
+            const subtitleSize = parseInt(document.getElementById('subtitleSize').value);
+
+            ctx.font = `bold ${titleSize}px 'Segoe UI'`;
+            ctx.fillStyle = titleColor;
+            ctx.textAlign = 'center';
+            ctx.fillText(title, canvas.width/2, 100);
+
+            ctx.font = `${subtitleSize}px 'Segoe UI'`;
+            ctx.fillStyle = subtitleColor;
+            ctx.fillText(subtitle, canvas.width/2, 150);
+
+            // Add decorative elements
+            ctx.strokeStyle = '#1a237e';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(50, 50);
+            ctx.lineTo(100, 50);
+            ctx.moveTo(canvas.width - 100, 50);
+            ctx.lineTo(canvas.width - 50, 50);
+            ctx.stroke();
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'business-transformation.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initial generation
+        generateImage();
+
+        // Update on input changes
+        document.querySelectorAll('.controls input, .controls select').forEach(input => {
+            input.addEventListener('input', generateImage);
+        });
+    </script>
+</body>
+</html> 

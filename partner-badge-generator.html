@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Badge Generator - Veltrix Solutions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            min-height: 300px;
+        }
+
+        #badgeCanvas {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #1a237e;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="color"] {
+            height: 40px;
+            padding: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button {
+            background: #1a237e;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #64b5f6;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .template-button {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-button:hover {
+            border-color: #1a237e;
+            transform: translateY(-2px);
+        }
+
+        .template-button.selected {
+            border-color: #1a237e;
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Partner Badge Generator</h1>
+        <div class="badge-templates">
+            <button class="template-button selected" onclick="selectTemplate('gold')">Gold Partner</button>
+            <button class="template-button" onclick="selectTemplate('silver')">Silver Partner</button>
+            <button class="template-button" onclick="selectTemplate('bronze')">Bronze Partner</button>
+            <button class="template-button" onclick="selectTemplate('certified')">Certified Partner</button>
+        </div>
+        <div class="preview-container">
+            <canvas id="badgeCanvas"></canvas>
+        </div>
+        <div class="controls">
+            <div class="control-group">
+                <label for="partnerName">Partner Name</label>
+                <input type="text" id="partnerName" value="Veltrix Solutions" maxlength="50">
+            </div>
+            <div class="control-group">
+                <label for="partnerType">Partner Type</label>
+                <input type="text" id="partnerType" value="Microsoft Dynamics 365" maxlength="50">
+            </div>
+            <div class="control-group">
+                <label for="primaryColor">Primary Color</label>
+                <input type="color" id="primaryColor" value="#1a237e">
+            </div>
+            <div class="control-group">
+                <label for="secondaryColor">Secondary Color</label>
+                <input type="color" id="secondaryColor" value="#64b5f6">
+            </div>
+            <div class="control-group">
+                <label for="badgeSize">Badge Size</label>
+                <select id="badgeSize">
+                    <option value="small">Small</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="primary-button" onclick="generateBadge()">Generate Badge</button>
+            <button class="secondary-button" onclick="downloadBadge()">Download Badge</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('badgeCanvas');
+        const ctx = canvas.getContext('2d');
+        let currentTemplate = 'gold';
+
+        function resizeCanvas() {
+            canvas.width = 400;
+            canvas.height = 300;
+        }
+
+        function selectTemplate(template) {
+            currentTemplate = template;
+            document.querySelectorAll('.template-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            generateBadge();
+        }
+
+        function drawBadgeBackground() {
+            // Draw main badge shape
+            ctx.beginPath();
+            ctx.moveTo(50, 50);
+            ctx.lineTo(350, 50);
+            ctx.lineTo(350, 250);
+            ctx.lineTo(50, 250);
+            ctx.closePath();
+            
+            // Create gradient
+            const gradient = ctx.createLinearGradient(50, 50, 350, 250);
+            gradient.addColorStop(0, document.getElementById('primaryColor').value);
+            gradient.addColorStop(1, document.getElementById('secondaryColor').value);
+            
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Add border
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        function drawPartnerIcon() {
+            // Draw Microsoft logo
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 48px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('M', 200, 120);
+        }
+
+        function drawPartnerText() {
+            const partnerName = document.getElementById('partnerName').value;
+            const partnerType = document.getElementById('partnerType').value;
+            
+            // Draw partner name
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 24px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.fillText(partnerName, 200, 180);
+            
+            // Draw partner type
+            ctx.font = '16px Segoe UI';
+            ctx.fillText(partnerType, 200, 210);
+            
+            // Draw partner level
+            ctx.font = 'bold 20px Segoe UI';
+            ctx.fillText(currentTemplate.charAt(0).toUpperCase() + currentTemplate.slice(1) + ' Partner', 200, 240);
+        }
+
+        function generateBadge() {
+            resizeCanvas();
+            
+            // Clear canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw badge
+            drawBadgeBackground();
+            drawPartnerIcon();
+            drawPartnerText();
+        }
+
+        function downloadBadge() {
+            const link = document.createElement('a');
+            link.download = `partner-badge-${currentTemplate}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initial generation
+        generateBadge();
+
+        // Update on input changes
+        document.querySelectorAll('.controls input, .controls select').forEach(input => {
+            input.addEventListener('input', generateBadge);
+        });
+    </script>
+</body>
+</html> 
