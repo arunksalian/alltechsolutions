@@ -1253,7 +1253,8 @@ html {
     margin: 2rem 0;
 }
 
-.stats-container {
+.stats-container,
+.stats-grid {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
@@ -1262,7 +1263,8 @@ html {
     text-align: center;
 }
 
-.stat-item {
+.stat-item,
+.stat-card {
     padding: 2rem;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
@@ -1270,39 +1272,47 @@ html {
     transition: transform 0.3s ease;
 }
 
-.stat-item:hover {
+.stat-item:hover,
+.stat-card:hover {
     transform: translateY(-5px);
 }
 
-.stat-item h3 {
+.stat-item h3,
+.stat-card h3 {
     font-size: 2.5rem;
     color: #1a237e;
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
 
-.stat-item p {
+.stat-item p,
+.stat-card p {
     font-size: 1.2rem;
     color: #455a64;
     margin: 0;
+    padding: 0;
 }
 
 @media (max-width: 768px) {
-    .stats-container {
+    .stats-container,
+    .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .stat-item h3 {
+    .stat-item h3,
+    .stat-card h3 {
         font-size: 2rem;
     }
 
-    .stat-item p {
+    .stat-item p,
+    .stat-card p {
         font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .stats-container {
+    .stats-container,
+    .stats-grid {
         grid-template-columns: 1fr;
     }
 }
