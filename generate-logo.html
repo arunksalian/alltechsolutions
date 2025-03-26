@@ -45,21 +45,73 @@
             ctx.fillStyle = '#1a237e';
             ctx.fillRect(0, 0, 200, 200);
 
-            // Draw circle
+            // Draw outer hexagon
             ctx.beginPath();
-            ctx.arc(100, 100, 80, 0, 2 * Math.PI);
-            ctx.fillStyle = '#64b5f6';
+            for (let i = 0; i < 6; i++) {
+                const angle = (i * 2 * Math.PI) / 6;
+                const x = 100 + 70 * Math.cos(angle);
+                const y = 100 + 70 * Math.sin(angle);
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            
+            // Add gradient to hexagon
+            const gradient = ctx.createRadialGradient(100, 100, 0, 100, 100, 70);
+            gradient.addColorStop(0, '#64b5f6');
+            gradient.addColorStop(1, '#1a237e');
+            ctx.fillStyle = gradient;
             ctx.fill();
+            
+            // Add white border
             ctx.strokeStyle = 'white';
             ctx.lineWidth = 3;
             ctx.stroke();
 
-            // Draw "ATS" text
+            // Draw inner hexagon
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (i * 2 * Math.PI) / 6;
+                const x = 100 + 50 * Math.cos(angle);
+                const y = 100 + 50 * Math.sin(angle);
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.fillStyle = '#1a237e';
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Draw "VIT" text with shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+            
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 60px Arial';
+            ctx.font = 'bold 45px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('ATS', 100, 100);
+            ctx.fillText('VIT', 100, 100);
+
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Draw company name below the hexagon
+            ctx.font = 'bold 16px Arial';
+            ctx.fillStyle = '#1a237e';
+            ctx.fillText('VELTRIX INFOTECH', 100, 190);
         }
 
         function downloadLogo() {
